@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import Home from './Home';
+import Header from './Header';
+import Products from './Products';
 import About from './About';
 import Error from './Error';
 
@@ -18,7 +19,7 @@ class Router extends Component {
         products: []
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.setState({
             products: infoProducts
         })
@@ -28,11 +29,18 @@ class Router extends Component {
         return (
             <BrowserRouter>
 
-                <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route exact path="/about" component={About} />
-                    <Route component={Error} />
-                </Switch>
+                <div className="container">
+                    <Header />
+                    <Switch>
+                        <Route exact path="/" render={() => (
+                            <Products
+                                products={this.state.products}
+                            />
+                        )} />
+                        <Route exact path="/about" component={About} />
+                        <Route component={Error} />
+                    </Switch>
+                </div>
             </BrowserRouter>
         );
     }
