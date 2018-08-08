@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Header from './Header';
 import Products from './Products';
+import SingleProduct from './SingleProduct';
 import About from './About';
 import Error from './Error';
 
@@ -38,6 +39,14 @@ class Router extends Component {
                             />
                         )} />
                         <Route exact path="/about" component={About} />
+                        <Route exact path="/product/:productId" render={(props) => {
+                            let idProduct = props.location.pathname.replace('/product/', '');
+                            return (
+                                <SingleProduct
+                                    product={this.state.products[idProduct]}
+                                />
+                            )
+                        }} />
                         <Route component={Error} />
                     </Switch>
                 </div>
