@@ -19,7 +19,8 @@ const propTypes = {
 class Router extends Component {
 
     state = {
-        products: []
+        products: [],
+        searchTerm : ''
     }
 
     componentWillMount() {
@@ -28,7 +29,32 @@ class Router extends Component {
         })
     }
 
-    render() { 
+    searchProduct = (search) => {
+        if(search.length > 2) {
+            this.setState({
+                searchTerm : search
+            })
+        } else {
+            this.setState({
+                searchTerm : ''
+            })
+        }
+    }
+
+    render() {
+
+        let products = [...this.state.products];
+        let search = this.state.searchTerm;
+        let result;
+
+        if(search !== '') {
+            result = products.filter(product => (
+                product.name.toLowerCase().indexOf( search.toLowerCase() ) !== -1
+            ))
+        } else {
+            result = products;
+        }
+
         return (
             <BrowserRouter>
 
@@ -38,13 +64,15 @@ class Router extends Component {
                     <Switch>
                         <Route exact path="/" render={() => (
                             <Products
-                                products={this.state.products}
+                                products={result}
+                                searchProduct={this.searchProduct}
                             />
                         )} />
                         <Route exact path="/about" component={About} />
                         <Route exact path="/products" render={() => (
                             <Products
-                                products={this.state.products}
+                                products={result}
+                                searchProduct={this.searchProduct}
                             />
                         )} />
                         <Route exact path="/product/:productId" render={(props) => {
