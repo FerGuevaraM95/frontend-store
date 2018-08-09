@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Header from './Header';
+import Navigation from './Navigation';
 import Products from './Products';
 import SingleProduct from './SingleProduct';
 import About from './About';
+import Contact from './Contact';
 import Error from './Error';
 
 import infoProducts from './data.json';
@@ -32,6 +34,7 @@ class Router extends Component {
 
                 <div className="container">
                     <Header />
+                    <Navigation />
                     <Switch>
                         <Route exact path="/" render={() => (
                             <Products
@@ -39,6 +42,11 @@ class Router extends Component {
                             />
                         )} />
                         <Route exact path="/about" component={About} />
+                        <Route exact path="/products" render={() => (
+                            <Products
+                                products={this.state.products}
+                            />
+                        )} />
                         <Route exact path="/product/:productId" render={(props) => {
                             let idProduct = props.location.pathname.replace('/product/', '');
                             return (
@@ -47,6 +55,7 @@ class Router extends Component {
                                 />
                             )
                         }} />
+                        <Route exact path="/contact" component={Contact} />
                         <Route component={Error} />
                     </Switch>
                 </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Product = (props) => {
     const {image, name, price, id} = props.info;
@@ -6,7 +7,7 @@ const Product = (props) => {
         <li>
             <img src={`img/${image}.jpg`} alt={name}/>
             <p>{name} <span>${price}</span></p>
-            <a href="#">Más Información</a>
+            <Link to={`/product/${id}`}>Más Información</Link>
         </li>
     )
 }

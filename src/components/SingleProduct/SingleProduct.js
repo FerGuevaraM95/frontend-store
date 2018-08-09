@@ -3,7 +3,7 @@ import React from 'react';
 import './single-product.css';
 
 const SingleProduct = (props) => {
-    if(!props) return null;
+    // if(props) return null;
 
     const {image, name, price, description} = props.product
 
